@@ -10,19 +10,21 @@ data (list or np.array): מערך של מספרים.
 מחזירה:
 np.array: מערך מנורמל. אם כל הערכים במערך זהים, יש להחזיר מערך של אפסים.
 """
-# המרת הקלט ל-numpy array לצורך חישובים וקטוריים
+# המרת הקלט ל-numpy array
 data = np.array(input_array)
+# בדיקה אם כל הערכים זהים
 if np.all(data == data[0]):
-return np.zeros(data.shape)
-else:
-new_array = (data - np.min(data)) / (np.max(data) - np.min(data))
+# החזרת מערך אפסים באותו אורך וסוג float בדיוק כמו שנדרש בהערות
+return np.zeros_like(data, dtype=float)
+# חישוב ה-Min-Max Scaling והמרה מפורשת ל-float
+min_val = np.min(data)
+max_val = np.max(data)
+new_array = (data - min_val) / (max_val - min_val)
 
-return new_array
-# --- כיתבו את הקוד שלכם כאן ---
-# חשוב לזכור להחליף את pass ב- return
+return new_array.astype(float)
 
 if __name__ == "__main__":
-# כאן הסטודנטים יכולים להריץ בדיקה עצמית מהירה
+# בדיקה עצמית מהירה
 test_data = [10, 20, 30, 40, 50]
 print(f"Original: {test_data}")
 print(f"Normalized: {normalized_array(test_data)}")
